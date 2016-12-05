@@ -40,7 +40,7 @@ app.post('/', function (req, res) {
       from: req.body.firstname + ' &lt;' + req.body.email + '&gt;', //grab form data from the request body object
       to: 'derek.garner@aggiemail.usu.edu',
       subject: 'Website contact form',
-      text: 'I would like some cool-aid!'
+      text: req.body.firstname + ' ' + req.body.email + ''+'\n I would like some cool-aid!'
    
       
   };
