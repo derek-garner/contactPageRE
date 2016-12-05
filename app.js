@@ -40,26 +40,33 @@ app.post('/', function (req, res) {
       from: req.body.firstname + ' &lt;' + req.body.email + '&gt;', //grab form data from the request body object
       to: 'derek.garner@aggiemail.usu.edu',
       subject: 'Website contact form',
-      text: req.body.firstname + ' ' + req.body.email + ''+'\n I would like some cool-aid!'
-   
-      
+      text: req.body.firstname + ' ' + req.body.email + ''+'\n I would like some cool-aid!' 
   };
    console.log(req.body.firstname);
     console.log(req.body.lastname);
      console.log(req.body.email);
       console.log(req.body.confirmEmail);
+
+      if(req.body.email==req.body.confirmEmail){
   smtpTrans.sendMail(mailOpts, function (error, response) {
-      //Error causing email not to send
+     
       if (error) {
            console.log('error');
-          res.render('index', { title: 'ShadyCult', msg: 'Error occured, message not sent.', err: true, page: 'index' })
+          res.render('error', { title: 'ShadyCult', msg: 'Error occured, message not sent.', err: true, page: 'index' })
       }
       //Success
       else {
            console.log("success");
-          res.render('index', { title: 'ShadyCult', msg: 'Message sent! Thank you.', err: false, page: 'index' })
+          res.render('success', { title: 'ShadyCult', msg: 'Message sent! Thank you.', err: false, page: 'index' })
       }
   });
+      }
+      else{
+          console.log("DOES NOT MATCH");
+          res.render('error', { title: 'ShadyCult', msg: 'Error occured, message not sent.', err: true, page: 'index' })
+          
+      }
+
 });
 
 
